@@ -1,0 +1,26 @@
+interface ButtonProps {
+  label: string
+  onClick?: () => void
+  type?: 'button' | 'submit'
+  variant?: 'primary' | 'danger' | 'success'
+  disabled?: boolean
+}
+
+export function Button({ label, onClick, type = 'button', variant = 'primary', disabled }: ButtonProps) {
+  const variants = {
+    primary: 'bg-blue-600 hover:bg-blue-700 text-white',
+    danger: 'bg-red-600 hover:bg-red-700 text-white',
+    success: 'bg-green-600 hover:bg-green-700 text-white',
+  }
+
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${variants[variant]} disabled:opacity-50 disabled:cursor-not-allowed`}
+    >
+      {label}
+    </button>
+  )
+}
