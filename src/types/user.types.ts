@@ -18,3 +18,17 @@ export interface ICreateUser {
   email: string
   password: string
 }
+
+export interface IUpdateUser {
+  name?: string
+  email?: string
+  password?: string
+}
+
+export interface IUserSummary {
+  id: string
+  name: string
+  email: string
+  role: RoleEnum
+  isActive: boolean
+}

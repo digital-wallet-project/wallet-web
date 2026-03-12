@@ -13,12 +13,27 @@ export function Login() {
   const { login } = useAuth()
   const navigate = useNavigate()
 
+  function parseJwt(token: string) {
+    const base64 = token.split('.')[1]
+    return JSON.parse(atob(base64))
+  }
+  
   async function handleLogin() {
     try {
       setLoading(true)
       setError('')
       const data = await authService.login(email, password)
-      login(data.token, data.user)
+      const payload = parseJwt(data.token)
+      const user = {
+        id: payload.sub,
+        email: payload.email,
+        role: payload.role,
+        name: payload.name,
+        isActive: true,
+        createdAt: '',
+        updatedAt: '',
+      }
+      login(data.token, user)
       navigate('/wallet')
     } catch (err: any) {
       setError(err.response?.data?.message || 'Erro ao fazer login')
