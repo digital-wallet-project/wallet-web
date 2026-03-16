@@ -20,6 +20,9 @@ export function Navbar() {
         <span className="cursor-pointer text-sm hover:underline" onClick={() => navigate('/account')}>
           Minha Conta
         </span>
+        <span className="cursor-pointer text-sm hover:underline" onClick={() => navigate('/transactions')}>
+          Transações
+        </span>
         {isAdmin && (
           <span className="cursor-pointer text-sm hover:underline" onClick={() => navigate('/admin/users')}>
             Usuários

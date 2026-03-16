@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { walletService } from '../services/wallet.service'
 import { IWallet } from '../types/wallet.types'
 import { Navbar } from '../components/Navbar'
+import { Button } from '../components/Button'
 
 export function Wallet() {
   const [wallet, setWallet] = useState<IWallet | null>(null)
   const [error, setError] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function fetchWallet() {
@@ -32,6 +35,10 @@ export function Wallet() {
               <p className="text-3xl font-bold text-blue-600">
                 R$ {Number(wallet.balance).toFixed(2).replace('.', ',')}
               </p>
+            </div>
+             <div className="flex gap-3">
+              <Button label="Depositar" onClick={() => navigate('/transactions/new?type=deposit')} />
+              <Button label="Transferir" onClick={() => navigate('/transactions/new?type=transfer')} variant="success" />
             </div>
           </div>
         )}
