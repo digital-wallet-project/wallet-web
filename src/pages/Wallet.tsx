@@ -13,7 +13,7 @@ export function Wallet() {
   useEffect(() => {
     async function fetchWallet() {
       try {
-        const data = await walletService.getOwn()
+        const data = await walletService.get()
         setWallet(data)
       } catch (err: any) {
         setError(err.response?.data?.message || 'Erro ao buscar carteira')

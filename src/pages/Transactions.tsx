@@ -16,7 +16,7 @@ export function Transactions() {
   useEffect(() => {
     async function fetchWalletId() {
       try {
-        const wallet = await walletService.getOwn()
+        const wallet = await walletService.get()
         setWalletId(wallet.id)
       } catch {}
     }
@@ -102,14 +102,29 @@ export function Transactions() {
                       </p>
                     )}
 
-                    {/* ADMIN*/}
+                    {/* ADMIN - transfer*/}
                     {isAdmin && tx.type === TransactionTypeEnum.TRANSFER && (
                       <div className="mt-1">
                         <p className="text-xs text-gray-400">De: {(tx as any).WalletFrom?.User?.email}</p>
                         <p className="text-xs text-gray-400">Para: {(tx as any).WalletTo?.User?.email}</p>
                       </div>
                     )}
-                  </div>
+
+                    {/* ADMIN - deposit */}
+                    {isAdmin && tx.type === TransactionTypeEnum.DEPOSIT && (
+                      <div className="mt-1">
+                        <p className="text-xs text-gray-400">{(tx as any).WalletTo?.User?.email}</p>
+                      </div>
+                    )}
+
+                    {/* ADMIN - reversal */}
+                    {isAdmin && tx.type === TransactionTypeEnum.REVERSAL && (
+                      <div className="mt-1">
+                        <p className="text-xs text-gray-400">De: {(tx as any).WalletFrom?.User?.email}</p>
+                        <p className="text-xs text-gray-400">Para: {(tx as any).WalletTo?.User?.email}</p>
+                      </div>
+                    )}
+                  </div>                  
                   <div className="flex items-center gap-4">
                     <p className={`font-bold ${direction ? direction.color : 'text-blue-600'}`}>
                       {direction?.signal} R$ {Number(tx.amount).toFixed(2).replace('.', ',')}
